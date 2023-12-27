@@ -27,7 +27,6 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
     useEffect(() => {
       canvasRef.current.canvas = new fabric.Canvas("tne-canvas-id", {
         width: 850,
-
         height: 540,
       });
 

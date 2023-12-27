@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import QuickActions from "./components/QuickActions/QuickActions";
 import CanvasSlide, {
