@@ -7,7 +7,7 @@ import CanvasSlide, {
 import SlidesPanel from "./components/SlidesPanel/SlidesPanel";
 
 import "./main.scss";
-
+// test commit
 function App() {
   const canvasRef = useRef<CanvasSlideInstance>();
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
