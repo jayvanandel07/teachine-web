@@ -1,9 +1,9 @@
-@import "../../variables.scss";
+@import "../../main.scss";
 
 .quick-actions-container {
   min-width: 30%;
   position: fixed;
-  bottom: 0;
+  bottom: .5rem;
   left: 50%;
   transform: translateX(-50%);
 

@@ -1,13 +1,5 @@
+@import "../../main.scss";
+
 .slide-container {
-  margin: auto;
-  margin-top: 10%;
-  margin-left: 15%;
-  height: 70svh;
-
-  border: 5px solid blue;
-  max-width: 60%;
-  overflow: hidden;
-
-  .canvas {
-  }
+  flex: 1;
 }
