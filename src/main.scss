@@ -1,0 +1,7 @@
+@import "./scss/global_styles";
+
+.wrapper{
+    @include flex();
+    padding: .5rem;
+    height: 100dvh;
+}
