@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from "react";
 import styles from "./Slide.module.scss";
 import { fabric } from "fabric";
@@ -37,7 +38,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
         },
         onClick: () => {},
       });
-    }, []);
+    }, [canvasRef.current.canvas]);
 
     useImperativeHandle(ref, () => ({
       canvas: canvasRef.current.canvas,

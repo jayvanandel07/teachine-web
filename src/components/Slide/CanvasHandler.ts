@@ -34,6 +34,19 @@ export class CanvasHandler {
 
   private initOptions(options: CanvasHandlersOptions) {
     this.canvas = options.canvas;
+
+    this.canvas?.on("selection:updated", () => {
+      if (this.canvas?.getActiveObjects().length === 2) {
+        // swapButton.set("visible", true);
+      } else {
+        // swapButton.set("visible", false);
+      }
+      this.canvas?.renderAll();
+    });
+
+    this.canvas.on("selection:cleared", () => {
+      // swapButton.set("visible", false);
+    });
   }
 
   addRect() {
@@ -79,9 +92,16 @@ export class CanvasHandler {
     // this.canvas?.on("object:moving", (event) => {});
 
     group.on("moving", (e) => {
+      console.clear();
       this.canvas?.forEachObject((element) => {
         if (!isEqual(element, group) && areObjectsNear(element, group)) {
           text.set("text", element?.customData);
+
+          console.log("set to" + element?.customData);
+
+          setTimeout(() => {
+            text.set("text", "");
+          }, 500);
         }
       });
     });
@@ -106,6 +126,41 @@ export class CanvasHandler {
     });
 
     this.canvas?.add(createdObject as fabric.Rect);
+  }
+
+  swapActiveObjects() {
+    // console.log(this.canvas?.getActiveObjects());
+    const activeObjects = this.canvas?.getActiveObjects();
+
+    if (activeObjects?.length !== 2)
+      return alert(
+        `Select ${
+          activeObjects?.length > 2 ? "only" : "atleast"
+        } two objects to swap`
+      );
+
+    const [obj1, obj2] = activeObjects;
+
+    obj1.animate("left", obj2.left as number, {
+      duration: 1000,
+      onChange: this.canvas?.renderAll.bind(this.canvas),
+      onComplete: function () {
+        // animateBtn.disabled = false;
+      },
+      easing: fabric.util.ease["easeInBack"],
+      // easing: fabric.util.ease[document.getElementById("easing").value],
+    });
+
+    obj2.animate("left", obj1.left as number, {
+      duration: 1000,
+      onChange: this.canvas?.renderAll.bind(this.canvas),
+      onComplete: function () {
+        // animateBtn.disabled = false;
+      },
+
+      easing: fabric.util.ease["easeInBack"],
+      // easing: fabric.util.ease[document.getElementById("easing").value],
+    });
   }
 }
 
