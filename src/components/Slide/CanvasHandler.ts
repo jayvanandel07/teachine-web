@@ -91,10 +91,13 @@ export class CanvasHandler {
 
     // this.canvas?.on("object:moving", (event) => {});
 
-    group.on("moving", (e) => {
+    group.on("moving", () => {
       this.canvas?.forEachObject((element) => {
         if (!isEqual(element, group) && areObjectsNear(element, group)) {
-          text.set("text", element?.customData);
+          text.set(
+            "text",
+            (element as fabric.Object & { customData: string }).customData
+          );
 
           setTimeout(() => {
             text.set("text", "");
@@ -127,6 +130,8 @@ export class CanvasHandler {
 
   swapActiveObjects() {
     const activeObjects = this.canvas?.getActiveObjects();
+
+    if (!activeObjects) return;
 
     if (activeObjects?.length !== 2)
       return alert(
@@ -179,9 +184,23 @@ export class CanvasHandler {
       // easing: fabric.util.ease[document.getElementById("easing").value],
     });
   }
+
+  groupObjects() {
+    const objectsToGroup = this.canvas?.getActiveObjects();
+
+    const group = new fabric.Group(objectsToGroup, {
+      originX: "center",
+      originY: "center",
+    });
+
+    objectsToGroup?.forEach((obj) => this.canvas?.remove(obj));
+
+    this.canvas?.add(group);
+    this.canvas?.renderAll();
+  }
 }
 
-function areObjectsNear(obj1, obj2) {
+function areObjectsNear(obj1: fabric.Object, obj2: fabric.Object) {
   const distance = Math.sqrt(
     Math.pow(obj1.left - obj2.left, 2) + Math.pow(obj1.top - obj2.top, 2)
   );
