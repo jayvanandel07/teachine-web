@@ -1,0 +1,11 @@
+@import "mixins";
+@import "reset";
+@import "variables";
+
+
+.panel{
+    width: 20%;
+    background: #0000007d;
+    backdrop-filter: blur(20px);
+    border-radius: $border-radius;
+}

@@ -1,0 +1,7 @@
+@import "./sass/global_styles";
+
+.wrapper {
+  @include flex();
+  padding: 0.5rem;
+  height: 100dvh;
+}

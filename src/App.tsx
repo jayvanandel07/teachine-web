@@ -6,11 +6,13 @@ import CanvasSlide, {
 } from "./components/Slide/CanvasSlide";
 import SlidesPanel from "./components/SlidesPanel/SlidesPanel";
 
+import "./main.scss";
+
 function App() {
   const canvasRef = useRef<CanvasSlideInstance>();
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
   return (
-    <div>
+    <div className="wrapper">
       <SlidesPanel />
       {isCanvasLoaded && (
         <>

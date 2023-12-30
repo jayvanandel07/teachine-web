@@ -1,10 +1,12 @@
-@import "../../variables.scss";
+@import "../../main.scss";
 
 .quick-actions-container {
   min-width: 30%;
   position: fixed;
-  bottom: 5%;
-  left: 45%;
+
+  bottom: .5rem;
+  left: 50%;
+
   transform: translateX(-50%);
 
   ul {
