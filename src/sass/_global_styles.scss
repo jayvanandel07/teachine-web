@@ -2,10 +2,9 @@
 @import "reset";
 @import "variables";
 
-
-.panel{
-    width: 20%;
-    background: #0000007d;
-    backdrop-filter: blur(20px);
-    border-radius: $border-radius;
+.blurred-container{
+    @include blur();
+    @include linear-gradient()
+    
 }
+

@@ -10,3 +10,16 @@
 @mixin flex-center{
     @include flex(row,center,center);
 }
+
+
+//  Backdrop blur
+@mixin blur($blur: 20px){
+  backdrop-filter: blur($blur);
+}
+
+//  Linear gradient
+@mixin linear-gradient($direction:225deg , $colors...) {
+  background: linear-gradient($direction, $colors);
+
+  
+}
