@@ -9,6 +9,7 @@ import React, {
 import styles from "./Slide.module.scss";
 import { fabric } from "fabric";
 import { CanvasHandler } from "./CanvasHandler";
+import { useContextMenu } from "../../contexts/ContextMenuContext";
 
 interface SlideProps {
   ref: MutableRefObject<CanvasSlideInstance>;
@@ -24,6 +25,8 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
     const canvasRef = useRef<CanvasSlideInstance>({
       canvas: null,
     });
+
+    const {showContextMenuAtMousePosition} = useContextMenu();
 
     useEffect(() => {
       canvasRef.current.canvas = new fabric.Canvas("tne-canvas-id", {
@@ -44,7 +47,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
     }));
 
     return (
-      <div className={styles["slide-container"]}>
+      <div className={styles["slide-container"]} onContextMenu={(e)=>{showContextMenuAtMousePosition(e)}}>
         <canvas id="tne-canvas-id" className={styles.canvas} />
       </div>
     );

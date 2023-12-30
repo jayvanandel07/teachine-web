@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useContext, useRef, useState } from "react";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import QuickActions from "./components/QuickActions/QuickActions";
 import CanvasSlide, {
@@ -7,12 +7,16 @@ import CanvasSlide, {
 import SlidesPanel from "./components/SlidesPanel/SlidesPanel";
 
 import "./main.scss";
+import ContextMenu from "./components/ContextMenu/ContextMenu";
+import { ContextMenuProvider } from "./contexts/ContextMenuContext";
 
 function App() {
   const canvasRef = useRef<CanvasSlideInstance>();
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
+
   return (
-    <div className="wrapper">
+    <ContextMenuProvider>
+    <div className="wrapper" >
       {isCanvasLoaded && (
         <>
           <SlidesPanel />
@@ -45,7 +49,10 @@ function App() {
       canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
       />
     }
+    <ContextMenu />
     </div>
+    </ContextMenuProvider>
+
   );
 }
 
