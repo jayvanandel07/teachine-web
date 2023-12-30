@@ -18,7 +18,7 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
   const [activePanelObject, setActivePanelObject] = useState<object>();
 
   useEffect(() => {
-    const canvas = canvsasRef.current.canvas;
+    const canvas = canvasRef.current.canvas;
 
     canvas?.on("selection:created", (e) => {
       setActiveCanvasObject(e.selected?.[0]);
