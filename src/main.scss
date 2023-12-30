@@ -6,6 +6,7 @@
   padding: $wrapper-padding;
   height: 100dvh;
   background:$base-color;
+  user-select: none;
 }
 
 .panel{
@@ -14,7 +15,8 @@
   width: $panel-width;
   background: $neutral-color-100;
   border-right: $border-width solid $border-color;
-
+  border-start-end-radius: $border-radius;
+  border-end-end-radius: $border-radius;
   &::after{
     content:"";
     @include offset-border($panel-width,1/2,$border-width,$border-color,$border-offset,left,top);
@@ -42,6 +44,9 @@
   &.invert{
     border-left: $border-width solid $border-color;
     border-right: none;
+    border-radius: initial;
+    border-start-start-radius: $border-radius;
+    border-end-start-radius: $border-radius;
     
     &::after{
       content:"";
