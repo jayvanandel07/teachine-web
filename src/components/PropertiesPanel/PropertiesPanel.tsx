@@ -30,7 +30,7 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
     });
 
     canvas?.on(
-      "object:movinga",
+      "object:moving",
       debounce((e) => {
         setActivePanelObject(cloneDeep(e.target));
       }, 100)
