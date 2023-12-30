@@ -31,7 +31,18 @@ function App() {
           >
             Swap
           </button>
-          
+          <button
+            style={{
+              position: "absolute",
+              left: "55%",
+              zIndex: 10,
+            }}
+            onClick={() => {
+              canvasRef.current?.handler?.groupObjects();
+            }}
+          >
+            Group
+          </button>
         </>
       )}
       <CanvasSlide
@@ -40,11 +51,11 @@ function App() {
           setIsCanvasLoaded(true);
         }}
       />
-      {isCanvasLoaded &&
-      <PropertiesPanel
-      canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
-      />
-    }
+      {isCanvasLoaded && (
+        <PropertiesPanel
+          canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
+        />
+      )}
     </div>
   );
 }
