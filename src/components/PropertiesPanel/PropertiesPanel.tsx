@@ -14,8 +14,11 @@ interface PropertiesPanelProps {
 }
 
 const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
-  const [activeCanvasObject, setActiveCanvasObject] = useState<fabric.Object>();
-  const [activePanelObject, setActivePanelObject] = useState<object>();
+  const [activeCanvasObject, setActiveCanvasObject] =
+    useState<fabric.Object | null>();
+  const [activePanelObject, setActivePanelObject] = useState<object | null>();
+
+  const [toExpose, setToExpose] = useState("");
 
   useEffect(() => {
     const canvas = canvasRef.current.canvas;
@@ -29,6 +32,15 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
       setActivePanelObject(cloneDeep(e.selected?.[0]));
     });
 
+    canvas?.on("selection:cleared", () => {
+      setActiveCanvasObject(null);
+      setActivePanelObject(null);
+    });
+
+    canvas?.on("mouse:dblclick", (e) => {
+      console.log(e);
+    });
+
     canvas?.on(
       "object:moving",
       debounce((e) => {
@@ -37,32 +49,48 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
     );
   }, [canvasRef.current.canvas, canvasRef]);
 
-  if (!activeCanvasObject) return <div>No Active Object</div>;
+  // if (!activeCanvasObject) return <div>No Active Object</div>;
 
   return (
     <div className={styles.panel}>
       <section>
         <h1>General</h1>
-
+        <p>x</p>
         <input
           type="number"
-          value={activeCanvasObject.left}
+          disabled={!activeCanvasObject}
+          value={activeCanvasObject?.left ?? ""}
           onChange={(e) => {
             setActivePanelObject(cloneDeep(e.target));
-            activeCanvasObject.set("left", +e.target.value).setCoords();
+            activeCanvasObject?.set("left", +e.target.value).setCoords();
             canvasRef.current.canvas?.requestRenderAll();
           }}
         />
+        <p>expose</p>
+        <input
+          value={toExpose}
+          disabled={!activeCanvasObject}
+          placeholder={"sense"}
+          onChange={(e) => {
+            setToExpose(e.target.value);
+            debounce(() => {
+              activeCanvasObject?.set("customData", e.target.value);
+              canvasRef.current.canvas?.requestRenderAll();
+            }, 500);
+          }}
+        ></input>
       </section>
       <section>
         <h1>Object Specific</h1>
-        {activeCanvasObject.type === "text" && (
+        {activeCanvasObject?.type === "text" && (
           <input
             type="text"
-            value={activeCanvasObject.text}
+            value={(activeCanvasObject as fabric.Text).text}
             onChange={(e) => {
               setActivePanelObject(cloneDeep(e.target));
-              activeCanvasObject.set("text", e.target.value).setCoords();
+              (activeCanvasObject as fabric.Text)
+                .set("text", e.target.value)
+                .setCoords();
               canvasRef.current.canvas?.requestRenderAll();
             }}
           />
