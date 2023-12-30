@@ -188,9 +188,15 @@ export class CanvasHandler {
   groupObjects() {
     const objectsToGroup = this.canvas?.getActiveObjects();
 
-    const group = new fabric.Group(objectsToGroup);
+    const group = new fabric.Group(objectsToGroup, {
+      originX: "center",
+      originY: "center",
+    });
+
+    objectsToGroup?.forEach((obj) => this.canvas?.remove(obj));
 
     this.canvas?.add(group);
+    this.canvas?.renderAll();
   }
 }
 
