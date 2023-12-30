@@ -33,9 +33,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
 
       canvasRef.current.handler = new CanvasHandler({
         canvas: canvasRef.current.canvas as fabric.Canvas,
-        onAdd: (obj) => {
-          console.log(obj);
-        },
+        onAdd: (obj) => {},
         onClick: () => {},
       });
     }, [canvasRef.current.canvas]);
