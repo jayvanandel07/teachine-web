@@ -1,13 +1,7 @@
-import React, {
-  FC,
-  MutableRefObject,
-  useDeferredValue,
-  useEffect,
-  useState,
-} from "react";
+import { FC, MutableRefObject, useEffect, useState } from "react";
 import styles from "./PropertiesPanel.module.scss";
 import { CanvasSlideInstance } from "../Slide/CanvasSlide";
-import { debounce, cloneDeep, toPlainObject } from "lodash";
+import { debounce, cloneDeep } from "lodash";
 
 interface PropertiesPanelProps {
   canvasRef: MutableRefObject<CanvasSlideInstance>;
@@ -16,7 +10,7 @@ interface PropertiesPanelProps {
 const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
   const [activeCanvasObject, setActiveCanvasObject] =
     useState<fabric.Object | null>();
-  const [activePanelObject, setActivePanelObject] = useState<object | null>();
+  const [, setActivePanelObject] = useState<object | null>();
 
   const [toExpose, setToExpose] = useState("");
 
@@ -27,7 +21,10 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
       const activeObject = e.selected?.[0];
       setActiveCanvasObject(activeObject);
       setActivePanelObject(cloneDeep(activeObject));
-      setToExpose(activeObject?.customData || "");
+      setToExpose(
+        (activeObject as fabric.Object & { customData: string })?.customData ||
+          ""
+      );
     });
 
     canvas?.on("selection:updated", (e) => {
@@ -76,7 +73,10 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
           placeholder={"sense"}
           onChange={(e) => {
             setToExpose(e.target.value);
-            activeCanvasObject?.set("customData", e.target.value);
+            (activeCanvasObject as fabric.Object & { customData: string })?.set(
+              "customData",
+              e.target.value
+            );
             debounce(() => {
               canvasRef.current.canvas?.requestRenderAll();
             }, 10);
