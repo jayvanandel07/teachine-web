@@ -1,6 +1,9 @@
-import React, { FC, MutableRefObject, useEffect, useState } from "react";
+import React, { FC, MutableRefObject } from "react";
 import { BiRectangle } from "react-icons/bi";
+import { FaArrowRight } from "react-icons/fa";
 import { BiCircle } from "react-icons/bi";
+import { BsFonts } from "react-icons/bs";
+
 import styles from "./QuickActions.module.scss";
 import { CanvasSlideInstance } from "../Slide/CanvasSlide";
 
@@ -14,7 +17,7 @@ const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef: canvas }) => {
       <ul>
         <li
           onClick={() => {
-            canvas.current.handler?.add();
+            canvas.current.handler?.addRect();
           }}
         >
           <BiRectangle />
@@ -22,9 +25,23 @@ const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef: canvas }) => {
         <li>
           <BiCircle />
         </li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li
+          onClick={() => {
+            canvas.current.handler?.addSensor();
+          }}
+        >
+          Proximity
+        </li>
+        <li>
+          <FaArrowRight />
+        </li>
+        <li
+          onClick={() => {
+            canvas.current.handler?.addText();
+          }}
+        >
+          <BsFonts />
+        </li>
       </ul>
     </div>
   );

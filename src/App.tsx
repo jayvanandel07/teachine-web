@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import QuickActions from "./components/QuickActions/QuickActions";
 import CanvasSlide, {
@@ -15,9 +15,23 @@ function App() {
     <div className="wrapper">
       <SlidesPanel />
       {isCanvasLoaded && (
-        <QuickActions
-          canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
-        />
+        <>
+          <QuickActions
+            canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
+          />
+          <button
+            style={{
+              position: "absolute",
+              left: "50%",
+              zIndex: 10,
+            }}
+            onClick={(a) => {
+              canvasRef.current?.handler?.swapActiveObjects();
+            }}
+          >
+            Swap
+          </button>
+        </>
       )}
       <CanvasSlide
         ref={(canvasInstance) => {
