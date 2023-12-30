@@ -47,8 +47,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
 
     return (
       <div className={styles["slide-container"]}>
-        {/* <canvas id="tne-canvas-id" className={styles.canvas} /> */}
-        <canvas>This contains the canvas</canvas>
+        <canvas id="tne-canvas-id" className={styles.canvas} />
       </div>
     );
   }
