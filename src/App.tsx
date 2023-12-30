@@ -31,9 +31,7 @@ function App() {
           >
             Swap
           </button>
-          <PropertiesPanel
-            canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
-          />
+          
         </>
       )}
       <CanvasSlide
@@ -42,6 +40,11 @@ function App() {
           setIsCanvasLoaded(true);
         }}
       />
+      {isCanvasLoaded &&
+      <PropertiesPanel
+      canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
+      />
+    }
     </div>
   );
 }

@@ -52,7 +52,7 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
   // if (!activeCanvasObject) return <div>No Active Object</div>;
 
   return (
-    <div className={styles.panel}>
+    <div className={`${styles.panel} ${styles.invert}`}>
       <section>
         <h1>General</h1>
         <p>x</p>

@@ -10,3 +10,34 @@
 @mixin flex-center{
     @include flex(row,center,center);
 }
+
+
+// Border offset placements
+@mixin offset-border($width:20%,$aspect-ratio:1/1,$border-width:2px,$border-color:#000,$border-offset:2px,$inline:left,$block:top){
+  position: absolute;
+  width: $width;
+  aspect-ratio: $aspect-ratio;
+  @if ($inline == left){
+    border-right: none;
+    border-left: $border-width solid $border-color;
+    right:initial;
+    left:$border-offset;
+  }
+  @else{
+    border-left: none;
+    border-right: $border-width solid $border-color;
+    left:initial;
+    right:$border-offset;
+  }
+  @if ($block == top){
+    border-bottom: none;
+    border-top: $border-width solid $border-color;
+    bottom:initial;
+    top:$border-offset;
+  }@else{
+    border-top: none;
+    border-bottom: $border-width solid $border-color;
+    top:initial;
+    bottom:$border-offset;
+  }
+}
