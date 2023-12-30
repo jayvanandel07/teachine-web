@@ -11,13 +11,13 @@ interface QuickActionsToolbarProps {
   canvasRef: MutableRefObject<CanvasSlideInstance>;
 }
 
-const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef: canvas }) => {
+const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef }) => {
   return (
     <div className={styles["quick-actions-container"]}>
       <ul>
         <li
           onClick={() => {
-            canvas.current.handler?.addRect();
+            canvasRef.current.handler?.addRect();
           }}
         >
           <BiRectangle />
@@ -27,7 +27,7 @@ const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef: canvas }) => {
         </li>
         <li
           onClick={() => {
-            canvas.current.handler?.addSensor();
+            canvasRef.current.handler?.addSensor();
           }}
         >
           Proximity
@@ -37,7 +37,7 @@ const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef: canvas }) => {
         </li>
         <li
           onClick={() => {
-            canvas.current.handler?.addText();
+            canvasRef.current.handler?.addText();
           }}
         >
           <BsFonts />

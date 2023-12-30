@@ -13,9 +13,9 @@ function App() {
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
   return (
     <div className="wrapper">
-      <SlidesPanel />
       {isCanvasLoaded && (
         <>
+          <SlidesPanel />
           <QuickActions
             canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
           />
@@ -25,12 +25,15 @@ function App() {
               left: "50%",
               zIndex: 10,
             }}
-            onClick={(a) => {
+            onClick={() => {
               canvasRef.current?.handler?.swapActiveObjects();
             }}
           >
             Swap
           </button>
+          <PropertiesPanel
+            canvasRef={canvasRef as MutableRefObject<CanvasSlideInstance>}
+          />
         </>
       )}
       <CanvasSlide
@@ -39,7 +42,6 @@ function App() {
           setIsCanvasLoaded(true);
         }}
       />
-      <PropertiesPanel />
     </div>
   );
 }

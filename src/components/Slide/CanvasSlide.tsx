@@ -33,9 +33,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
 
       canvasRef.current.handler = new CanvasHandler({
         canvas: canvasRef.current.canvas as fabric.Canvas,
-        onAdd: (obj) => {
-          console.log(obj);
-        },
+        onAdd: (obj) => {},
         onClick: () => {},
       });
     }, [canvasRef.current.canvas]);
@@ -47,8 +45,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
 
     return (
       <div className={styles["slide-container"]}>
-        {/* <canvas id="tne-canvas-id" className={styles.canvas} /> */}
-        <canvas>This contains the canvas</canvas>
+        <canvas id="tne-canvas-id" className={styles.canvas} />
       </div>
     );
   }

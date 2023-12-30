@@ -92,12 +92,9 @@ export class CanvasHandler {
     // this.canvas?.on("object:moving", (event) => {});
 
     group.on("moving", (e) => {
-      console.clear();
       this.canvas?.forEachObject((element) => {
         if (!isEqual(element, group) && areObjectsNear(element, group)) {
           text.set("text", element?.customData);
-
-          console.log("set to" + element?.customData);
 
           setTimeout(() => {
             text.set("text", "");
@@ -129,7 +126,6 @@ export class CanvasHandler {
   }
 
   swapActiveObjects() {
-    // console.log(this.canvas?.getActiveObjects());
     const activeObjects = this.canvas?.getActiveObjects();
 
     if (activeObjects?.length !== 2)
@@ -151,7 +147,28 @@ export class CanvasHandler {
       // easing: fabric.util.ease[document.getElementById("easing").value],
     });
 
+    obj1.animate("top", obj2.top as number, {
+      duration: 1000,
+      onChange: this.canvas?.renderAll.bind(this.canvas),
+      onComplete: function () {
+        // animateBtn.disabled = false;
+      },
+      easing: fabric.util.ease["easeInBack"],
+      // easing: fabric.util.ease[document.getElementById("easing").value],
+    });
+
     obj2.animate("left", obj1.left as number, {
+      duration: 1000,
+      onChange: this.canvas?.renderAll.bind(this.canvas),
+      onComplete: function () {
+        // animateBtn.disabled = false;
+      },
+
+      easing: fabric.util.ease["easeInBack"],
+      // easing: fabric.util.ease[document.getElementById("easing").value],
+    });
+
+    obj2.animate("top", obj1.top as number, {
       duration: 1000,
       onChange: this.canvas?.renderAll.bind(this.canvas),
       onComplete: function () {
@@ -171,7 +188,6 @@ function areObjectsNear(obj1, obj2) {
 
   // You can adjust the threshold value based on your requirement
   const threshold = 50;
-  console.log(distance, threshold);
 
   return distance < threshold;
 }
