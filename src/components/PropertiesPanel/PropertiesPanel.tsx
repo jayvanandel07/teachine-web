@@ -43,19 +43,30 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
     <div className={styles.panel}>
       <section>
         <h1>General</h1>
-        <p> {JSON.stringify(activeCanvasObject)}</p>
 
         <input
           type="number"
           value={activeCanvasObject.left}
-          // value={activeObject.left}
           onChange={(e) => {
             setActivePanelObject(cloneDeep(e.target));
-
             activeCanvasObject.set("left", +e.target.value).setCoords();
             canvasRef.current.canvas?.requestRenderAll();
           }}
         />
+      </section>
+      <section>
+        <h1>Object Specific</h1>
+        {activeCanvasObject.type === "text" && (
+          <input
+            type="text"
+            value={activeCanvasObject.text}
+            onChange={(e) => {
+              setActivePanelObject(cloneDeep(e.target));
+              activeCanvasObject.set("text", e.target.value).setCoords();
+              canvasRef.current.canvas?.requestRenderAll();
+            }}
+          />
+        )}
       </section>
     </div>
   );
