@@ -1,6 +1,24 @@
+
 // colors
-$base-color: rgb(226 232 240);
+$base-color: rgb(235, 235, 235);
+
+$neutral-color-100: rgb(255,255,255);
+$neutral-color-0: rgb(0,0,0);
+
+
+//  Application specific variables
+// Wrapper
+$wrapper-padding:10px;
+
+
+// Side Panel
+$panel-width:20%;
 
 
 // common styles
-$border-radius: 20px;
+$border-radius: 30px;
+$border-color:$neutral-color-0;
+$border-width:2px;
+
+$border-offset:border-offset($border-width,calc($wrapper-padding / 3),true);
+

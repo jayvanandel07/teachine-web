@@ -1,0 +1,8 @@
+@import "variables";
+@function border-offset($border-width:3px, $offset:2px,$negative:true) {
+    @if $negative{
+        @return -$border-width - $offset;
+    }@else{
+        @return $border-width + $offset;
+    }
+  }

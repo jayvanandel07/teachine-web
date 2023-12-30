@@ -1,10 +1,6 @@
 @import "mixins";
+@import "functions";
 @import "reset";
 @import "variables";
 
-.blurred-container{
-    @include blur();
-    @include linear-gradient()
-    
-}
 
