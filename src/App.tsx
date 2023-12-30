@@ -35,7 +35,18 @@ function App() {
           >
             Swap
           </button>
-          
+          <button
+            style={{
+              position: "absolute",
+              left: "55%",
+              zIndex: 10,
+            }}
+            onClick={() => {
+              canvasRef.current?.handler?.groupObjects();
+            }}
+          >
+            Group
+          </button>
         </>
       )}
       <CanvasSlide
