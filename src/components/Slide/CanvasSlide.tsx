@@ -26,7 +26,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
       canvas: null,
     });
 
-    const {showContextMenuAtMousePosition} = useContextMenu();
+    const {showContextMenuAtMousePosition,hideContextMenu} = useContextMenu();
 
     useEffect(() => {
       canvasRef.current.canvas = new fabric.Canvas("tne-canvas-id", {
@@ -47,7 +47,7 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
     }));
 
     return (
-      <div className={styles["slide-container"]} onContextMenu={(e)=>{showContextMenuAtMousePosition(e)}}>
+      <div className={styles["slide-container"]} onContextMenu={(e)=>{showContextMenuAtMousePosition(e)}} onClick={hideContextMenu} >
         <canvas id="tne-canvas-id" className={styles.canvas} />
       </div>
     );

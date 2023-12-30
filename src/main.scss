@@ -7,6 +7,7 @@
   height: 100dvh;
   background:$base-color;
   user-select: none;
+  gap: $gap;
 }
 
 .panel{
@@ -14,9 +15,10 @@
   position:relative;
   width: $panel-width;
   background: $neutral-color-100;
-  border-right: $border-width solid $border-color;
   border-start-end-radius: $border-radius;
   border-end-end-radius: $border-radius;
+  box-shadow: $box-shadow-x $box-shadow-y $box-shadow-blur $box-shadow-spread $box-shadow-color;
+
   &::after{
     content:"";
     @include offset-border($panel-width,1/2,$border-width,$border-color,$border-offset,left,top);
@@ -32,21 +34,20 @@
   &:hover{
     &::after{
       content:"";
-      @include offset-border($panel-width,1/1,$border-width,$border-color,$border-offset - $border-offset,left,top);
+      @include offset-border($panel-width,1/1,$border-width,$border-color,1px,left,top);
     }
   
     &::before{
       content:"";
-      @include offset-border($panel-width,1/1,$border-width,$border-color,$border-offset - $border-offset,left,bottom);
+      @include offset-border($panel-width,1/1,$border-width,$border-color,1px,left,bottom);
     }
   }
   
   &.invert{
-    border-left: $border-width solid $border-color;
-    border-right: none;
     border-radius: initial;
     border-start-start-radius: $border-radius;
     border-end-start-radius: $border-radius;
+    box-shadow: -$box-shadow-x $box-shadow-y $box-shadow-blur $box-shadow-spread $box-shadow-color;
     
     &::after{
       content:"";
@@ -64,15 +65,46 @@
     &:hover{
       &::after{
         content:"";
-        @include offset-border($panel-width,1/1,$border-width,$border-color,$border-offset - $border-offset,right,top);
+        @include offset-border($panel-width,1/1,$border-width,$border-color,1px,right,top);
       }
     
       &::before{
         content:"";
-        @include offset-border($panel-width,1/1,$border-width,$border-color,$border-offset - $border-offset,right,bottom);
+        @include offset-border($panel-width,1/1,$border-width,$border-color,1px,right,bottom);
       }
     }
   }
+  > * {
+    padding: $padding;
+  }
+
+  .panelNavigation{
+    @include flex();
+    border-bottom: $border-width solid $border-color-secondary;
+    color: $inactive-text-color;
+    > *{
+      padding: .75rem .5rem;
+      position: relative;
+      text-transform: capitalize;
+      transition: all .2s linear;
+      cursor: pointer;
+      &.active{
+        font-weight: bold;
+        color: $active-text-color;
+      }
+      &:hover{
+        @extend .active;
+      }
+      &::before{
+        content: "";
+        @include offset-border(50%,2/1,$border-width,$border-color,1px,left,bottom,40%);
+      }
+      &::after{
+        content: "";
+        @include offset-border(50%,2/1,$border-width,$border-color,1px,right,bottom,40%);
+      }
+    }
+    
+  }
   
 }
-

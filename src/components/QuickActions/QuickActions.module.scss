@@ -5,7 +5,7 @@
   position: fixed;
   bottom: .5rem;
   left: 50%;
-
+  z-index: 100;
   transform: translateX(-50%);
 
   ul {
