@@ -151,7 +151,28 @@ export class CanvasHandler {
       // easing: fabric.util.ease[document.getElementById("easing").value],
     });
 
+    obj1.animate("top", obj2.top as number, {
+      duration: 1000,
+      onChange: this.canvas?.renderAll.bind(this.canvas),
+      onComplete: function () {
+        // animateBtn.disabled = false;
+      },
+      easing: fabric.util.ease["easeInBack"],
+      // easing: fabric.util.ease[document.getElementById("easing").value],
+    });
+
     obj2.animate("left", obj1.left as number, {
+      duration: 1000,
+      onChange: this.canvas?.renderAll.bind(this.canvas),
+      onComplete: function () {
+        // animateBtn.disabled = false;
+      },
+
+      easing: fabric.util.ease["easeInBack"],
+      // easing: fabric.util.ease[document.getElementById("easing").value],
+    });
+
+    obj2.animate("top", obj1.top as number, {
       duration: 1000,
       onChange: this.canvas?.renderAll.bind(this.canvas),
       onComplete: function () {
