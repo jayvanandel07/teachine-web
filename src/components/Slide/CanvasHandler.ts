@@ -98,7 +98,7 @@ export class CanvasHandler {
 
           setTimeout(() => {
             text.set("text", "");
-          }, 500);
+          }, 700);
         }
       });
     });
@@ -118,9 +118,9 @@ export class CanvasHandler {
       }
     ) as fabric.Text & { customData: string };
 
-    createdObject.set({
-      customData: "bro",
-    });
+    // createdObject.set({
+    //   customData: "bro",
+    // });
 
     this.canvas?.add(createdObject as fabric.Rect);
   }

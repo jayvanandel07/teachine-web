@@ -24,8 +24,10 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
     const canvas = canvasRef.current.canvas;
 
     canvas?.on("selection:created", (e) => {
-      setActiveCanvasObject(e.selected?.[0]);
-      setActivePanelObject(cloneDeep(e.selected?.[0]));
+      const activeObject = e.selected?.[0];
+      setActiveCanvasObject(activeObject);
+      setActivePanelObject(cloneDeep(activeObject));
+      setToExpose(activeObject?.customData || "");
     });
 
     canvas?.on("selection:updated", (e) => {
@@ -35,6 +37,7 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
     canvas?.on("selection:cleared", () => {
       setActiveCanvasObject(null);
       setActivePanelObject(null);
+      setToExpose("");
     });
 
     canvas?.on("mouse:dblclick", (e) => {
@@ -68,15 +71,16 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
         />
         <p>expose</p>
         <input
-          value={toExpose}
+          value={toExpose || ""}
           disabled={!activeCanvasObject}
           placeholder={"sense"}
           onChange={(e) => {
             setToExpose(e.target.value);
+            activeCanvasObject?.set("customData", e.target.value);
             debounce(() => {
-              activeCanvasObject?.set("customData", e.target.value);
               canvasRef.current.canvas?.requestRenderAll();
-            }, 500);
+            }, 10);
+            setActivePanelObject(cloneDeep(e.target));
           }}
         ></input>
       </section>
