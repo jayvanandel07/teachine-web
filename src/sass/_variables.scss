@@ -9,6 +9,8 @@ $color-grey-0:rgb(210, 210, 210);
 $color-grey-100:rgb(90, 90, 90);
 $color-grey-900:rgb(39,39,39);
 
+$background-color:$neutral-color-100;
+
 //  Application specific variables
 // Wrapper
 $wrapper-padding:10px;
@@ -33,6 +35,12 @@ $padding: $gap;
 // Text
 $inactive-text-color:$color-grey-100;
 $active-text-color:$neutral-color-0;
+
+// Font
+$font-size:1rem;
+$font-size-normal:1em;
+$font-size-small:.75em;
+
 
 // Box shadow
 $box-shadow-x:1px;

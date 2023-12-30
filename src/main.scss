@@ -11,14 +11,15 @@
 }
 
 .panel{
+  @include flex(column);
   $transition:all .5s ease-in-out;
   position:relative;
   width: $panel-width;
-  background: $neutral-color-100;
+  background: $background-color;
   border-start-end-radius: $border-radius;
   border-end-end-radius: $border-radius;
   box-shadow: $box-shadow-x $box-shadow-y $box-shadow-blur $box-shadow-spread $box-shadow-color;
-
+  padding-bottom: 1rem;
   &::after{
     content:"";
     @include offset-border($panel-width,1/2,$border-width,$border-color,$border-offset,left,top);
@@ -82,8 +83,9 @@
     @include flex();
     border-bottom: $border-width solid $border-color-secondary;
     color: $inactive-text-color;
+    font-size: $font-size-small;
     > *{
-      padding: .75rem .5rem;
+      padding: .65rem .5rem;
       position: relative;
       text-transform: capitalize;
       transition: all .2s linear;
