@@ -1,18 +1,22 @@
 import React from "react";
 import styles from "./SlidesPanel.module.scss";
+import Slide from "./Slide";
 
 const SlidesPanel = () => {
-  return <div className={styles.panel}>
-    <div className={`${styles.panelNavigation}`}>
-      <p className={`${styles.active}`}>slides</p>
-      <p className={``}>assets</p>
+  return (
+    <div className={styles.panel}>
+      <div className={`${styles.panelNavigation}`}>
+        <p className={`${styles.active}`}>slides</p>
+        <p className={``}>assets</p>
+      </div>
+      <div className={`${styles.slidesContainer}`}>
+        <Slide />
+        <Slide></Slide>
+        <Slide></Slide>
+        <Slide></Slide>
+      </div>
     </div>
-    <div className={`${styles.slidesContainer}`}>
-      <div className={`${styles.slides} ${styles.box}`}><img src="https://source.unsplash.com/random/300×300" alt="sample images" width="900" height="400"/></div>
-      <div className={`${styles.slides} ${styles.box}`}><img src="https://source.unsplash.com/random/300×300" alt="sample images" width="900" height="400"/></div>
-      <div className={`${styles.slides} ${styles.box}`}><img src="https://source.unsplash.com/random/300×300" alt="sample images" width="900" height="400"/></div>
-      </div>    
-  </div>;
+  );
 };
 
 export default SlidesPanel;
