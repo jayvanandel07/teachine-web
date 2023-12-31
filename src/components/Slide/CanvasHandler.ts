@@ -93,16 +93,21 @@ export class CanvasHandler {
 
     group.on("moving", () => {
       this.canvas?.forEachObject((element) => {
-        if (!isEqual(element, group) && areObjectsNear(element, group)) {
-          text.set(
-            "text",
-            (element as fabric.Object & { customData: string }).customData
-          );
+        if (!(element as fabric.Object & { customData: string }).customData)
+          return;
 
-          setTimeout(() => {
-            text.set("text", "");
-          }, 700);
-        }
+        if (isEqual(element, group)) return;
+
+        if (!areObjectsNear(element, group)) return;
+
+        text.set(
+          "text",
+          (element as fabric.Object & { customData: string }).customData
+        );
+
+        setTimeout(() => {
+          text.set("text", "");
+        }, 700);
       });
     });
 
