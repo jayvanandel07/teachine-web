@@ -11,6 +11,8 @@ interface CanvasHandlersOptions extends CanvasHandlersCallback {
   canvas: fabric.Canvas;
 }
 
+type FabricObject = fabric.Object & { customData: string };
+
 export class CanvasHandler {
   public canvas?: fabric.Canvas;
 
@@ -93,17 +95,13 @@ export class CanvasHandler {
 
     group.on("moving", () => {
       this.canvas?.forEachObject((element) => {
-        if (!(element as fabric.Object & { customData: string }).customData)
-          return;
+        if (!(element as FabricObject).customData) return;
 
         if (isEqual(element, group)) return;
 
         if (!areObjectsNear(element, group)) return;
 
-        text.set(
-          "text",
-          (element as fabric.Object & { customData: string }).customData
-        );
+        text.set("text", (element as FabricObject).customData);
 
         setTimeout(() => {
           text.set("text", "");
@@ -206,6 +204,8 @@ export class CanvasHandler {
 }
 
 function areObjectsNear(obj1: fabric.Object, obj2: fabric.Object) {
+  if (!obj1.left || !obj1.top || !obj2.left || !obj2.top) return false;
+
   const distance = Math.sqrt(
     Math.pow(obj1.left - obj2.left, 2) + Math.pow(obj1.top - obj2.top, 2)
   );
