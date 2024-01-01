@@ -3,10 +3,13 @@
 .customMenu {
   /* display: none; */
   position: fixed;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  padding: 0.5rem 0;
+  width: max(150px, 5%);
+  border-radius: 2px;
+  background-color: $background-color-secondary;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  color: $text-color-secondary;
 }
 
 .customMenu ul {
@@ -16,7 +19,10 @@
 }
 
 .customMenu li {
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   user-select: none;
+  &:hover {
+    background-color: $text-hover-secondary;
+  }
 }
