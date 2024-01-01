@@ -71,38 +71,52 @@ export class CanvasHandler {
   }
 
   addSensor() {
-    const createdObject = new fabric.Rect({
+    const arrowPoints = [
+      { x: 0, y: 0 },
+      { x: 20, y: -40 },
+      { x: 40, y: 0 },
+      { x: 30, y: 0 },
+      { x: 30, y: 40 },
+      { x: 10, y: 40 },
+      { x: 10, y: 0 },
+    ];
+
+    const sensor = new fabric.Polygon(arrowPoints, {
       width: 30,
       height: 30,
-      left: 0,
-      top: 0,
+      left: 100,
+      top: 100,
       fill: "blue",
-
-      originX: "center", // Center the object horizontally
-      originY: "center", // Center the object vertically
+      originX: "center",
+      originY: "center",
+      // lockUniScaling: true,
+      lockScalingX: true,
+      lockScalingY: true,
     });
 
     const text = new fabric.Text("", {
-      left: 10, // Adjust the position based on your needs
-      top: 10,
-      originX: "center", // Center the text horizontally
-      originY: "center", // Center the text vertically
-    });
-
-    const group = new fabric.Group([createdObject, text], {
       left: 100,
-      top: 100,
+      top: 150,
+      fontSize: 20,
+      originX: "center",
+      selectable: false,
+      originY: "center",
     });
 
-    // this.canvas?.on("object:moving", (event) => {});
+    this.canvas?.add(text);
 
-    group.on("moving", () => {
+    sensor.on("moving", () => {
+      text.set({
+        left: sensor.left,
+        top: sensor.top + 50,
+      });
+
       this.canvas?.forEachObject((element) => {
         if (!(element as FabricObject).customData) return;
 
-        if (isEqual(element, group)) return;
+        if (isEqual(element, sensor) && isEqual(text, sensor)) return;
 
-        if (!areObjectsNear(element, group)) return;
+        if (!areObjectsNear(element, sensor)) return;
 
         text.set("text", (element as FabricObject).customData);
 
@@ -112,7 +126,7 @@ export class CanvasHandler {
       });
     });
 
-    this.canvas?.add(group);
+    this.canvas?.add(sensor);
   }
 
   addText() {
