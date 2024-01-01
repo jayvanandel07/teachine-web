@@ -11,7 +11,7 @@ interface CanvasHandlersOptions extends CanvasHandlersCallback {
   canvas: fabric.Canvas;
 }
 
-type FabricObject = fabric.Object & { customData: string };
+export type FabricObject = fabric.Object & { customData: string };
 
 export class CanvasHandler {
   public canvas?: fabric.Canvas;
