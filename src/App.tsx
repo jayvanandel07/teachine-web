@@ -1,4 +1,4 @@
-import { MutableRefObject, useContext, useRef, useState } from "react";
+import { MutableRefObject,  useEffect, useRef, useState } from "react";
 import PropertiesPanel from "./components/PropertiesPanel/PropertiesPanel";
 import QuickActions from "./components/QuickActions/QuickActions";
 import CanvasSlide, {
@@ -14,6 +14,16 @@ function App() {
   const canvasRef = useRef<CanvasSlideInstance>();
   const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
+  function clickHandler(e: MouseEvent): void {
+    e.preventDefault();
+  }
+  useEffect(() => {
+    window.addEventListener('contextmenu', clickHandler);
+    return () => {
+      window.removeEventListener('contextmenu', clickHandler);
+    };
+  }, []);
+  
   return (
     <ContextMenuProvider>
     <div className="wrapper" >

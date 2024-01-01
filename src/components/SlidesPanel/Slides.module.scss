@@ -1,0 +1,70 @@
+@import "../../main.scss";
+
+.slides {
+  $transition: all 0.5s ease-in-out;
+  $slide-width: 20%;
+  $active-border-width: $border-width + 1px;
+  $active-offset: -2px;
+  height: max(20vh, 150px);
+  @include flex-center();
+  position: relative;
+  background: $base-color;
+  padding: 3px;
+  cursor: pointer;
+  &::after {
+    content: "";
+    @include offset-border(
+      $slide-width,
+      1/2,
+      $border-width,
+      $border-color,
+      $border-offset,
+      left,
+      top
+    );
+    transition: $transition;
+  }
+  &::before {
+    content: "";
+    @include offset-border(
+      $slide-width,
+      1/2,
+      $border-width,
+      $border-color,
+      $border-offset,
+      right,
+      bottom
+    );
+    transition: $transition;
+  }
+  &:hover {
+    &::after {
+      content: "";
+      @include offset-border(
+        $slide-width,
+        1/1,
+        $active-border-width,
+        $border-color,
+        $active-offset,
+        left,
+        top
+      );
+    }
+
+    &::before {
+      content: "";
+      @include offset-border(
+        $slide-width,
+        1/1,
+        $active-border-width,
+        $border-color,
+        $active-offset,
+        right,
+        bottom
+      );
+    }
+  }
+  img {
+    max-height: 100%;
+  }
+}

@@ -53,6 +53,10 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
 
   return (
     <div className={`${styles.panel} ${styles.invert}`}>
+      <div className={`${styles.panelNavigation}`}>
+        <p className={`${styles.active}`}>design</p>
+        <p className={``}>prototype</p>
+      </div>
       <section>
         <h1>General</h1>
         <p>x</p>

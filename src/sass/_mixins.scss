@@ -13,9 +13,12 @@
 
 
 // Border offset placements
-@mixin offset-border($width:20%,$aspect-ratio:1/1,$border-width:2px,$border-color:#000,$border-offset:2px,$inline:left,$block:top){
+@mixin offset-border($width:20%,$aspect-ratio:1/1,$border-width:2px,$border-color:#000,$border-offset:2px,$inline:left,$block:top,$height:false){
   position: absolute;
   width: $width;
+  @if $height{
+    height: $height;
+  }
   aspect-ratio: $aspect-ratio;
   @if ($inline == left){
     border-right: none;
@@ -41,3 +44,4 @@
     bottom:$border-offset;
   }
 }
+

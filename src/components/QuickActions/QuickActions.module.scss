@@ -5,13 +5,13 @@
   position: fixed;
   bottom: .5rem;
   left: 50%;
-
+  z-index: 100;
   transform: translateX(-50%);
 
   ul {
     padding: 0.6rem 1rem;
     display: flex;
-    background-color: $base-color;
+    background-color: $background-color;
     border-radius: 0.5rem;
     gap: 1rem;
 

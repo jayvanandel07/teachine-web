@@ -1,1 +1,11 @@
 @import "../../main.scss";
+
+.slidesContainer {
+  max-height: 100%;
+  overflow: scroll;
+  scrollbar-gutter: stable;
+
+  > * {
+    margin-bottom: $gap;
+  }
+}
