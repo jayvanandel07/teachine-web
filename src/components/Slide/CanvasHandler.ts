@@ -55,7 +55,10 @@ export class CanvasHandler {
     const createdObject = new fabric.Rect({
       left: 100,
       top: 100,
-      fill: "red",
+      fill: "white",
+      stroke: "black",
+      rx: 2,
+      ry: 2,
       width: 20,
       height: 20,
     });
