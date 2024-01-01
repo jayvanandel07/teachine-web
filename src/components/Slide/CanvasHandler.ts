@@ -117,13 +117,11 @@ export class CanvasHandler {
 
   addText() {
     const createdObject: fabric.Text & { customData: string } = new fabric.Text(
-      "Test",
+      "Text",
       {
         left: 100,
         top: 100,
-        // fill: "blue",
-        // width: 20,
-        // height: 20,
+        fontSize: 19,
       }
     ) as fabric.Text & { customData: string };
 
