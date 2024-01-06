@@ -1,36 +1,66 @@
 @import "../../main.scss";
 
-
 .slide-container {
-  $transition:all .5s ease-in-out;
-  @include flex-center();
-  flex: 1;
-  position:relative;
+    $transition: all 0.5s ease-in-out;
+    @include flex-column();
+    flex: 1;
+    position: relative;
 
-  &::after{
-    content:"";
-    @include offset-border($panel-width,1/2,$border-width,$border-color,$border-offset,left,top);
-    transition:$transition;
-  }
-  &::before{
-    content:"";
-    @include offset-border($panel-width,1/2,$border-width,$border-color,$border-offset,right,bottom);
-    transition:$transition;
-  }
-  &:hover{
-    &::after{
-      content:"";
-      @include offset-border($panel-width,1/1,$border-width,$border-color,$border-offset - $border-offset,left,top);
+    &::after {
+        content: "";
+        @include offset-border(
+            $panel-width,
+            1/2,
+            $border-width,
+            $border-color,
+            $border-offset,
+            left,
+            top
+        );
+        transition: $transition;
     }
-  
-    &::before{
-      content:"";
-      @include offset-border($panel-width,1/1,$border-width,$border-color,$border-offset - $border-offset,right,bottom);
+    &::before {
+        content: "";
+        @include offset-border(
+            $panel-width,
+            1/2,
+            $border-width,
+            $border-color,
+            $border-offset,
+            right,
+            bottom
+        );
+        transition: $transition;
     }
-  }
+    &:hover {
+        &::after {
+            content: "";
+            @include offset-border(
+                $panel-width,
+                1/1,
+                $border-width,
+                $border-color,
+                $border-offset - $border-offset,
+                left,
+                top
+            );
+        }
 
-  canvas{
-    border: 1px solid red;  
-  }
+        &::before {
+            content: "";
+            @include offset-border(
+                $panel-width,
+                1/1,
+                $border-width,
+                $border-color,
+                $border-offset - $border-offset,
+                right,
+                bottom
+            );
+        }
+    }
+
+    canvas {
+        border: 1px solid #8f8f8f;
+    }
 }
-
