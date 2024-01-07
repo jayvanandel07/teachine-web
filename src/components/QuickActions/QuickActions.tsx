@@ -8,43 +8,44 @@ import styles from "./QuickActions.module.scss";
 import { CanvasSlideInstance } from "../Slide/CanvasSlide";
 
 interface QuickActionsToolbarProps {
-  canvasRef: MutableRefObject<CanvasSlideInstance>;
+    canvasRef: MutableRefObject<CanvasSlideInstance>;
 }
 
 const QuickActions: FC<QuickActionsToolbarProps> = ({ canvasRef }) => {
-  return (
-    <div className={styles["quick-actions-container"]}>
-      <ul>
-        <li
-          onClick={() => {
-            canvasRef.current.handler?.addRect();
-          }}
-        >
-          <BiRectangle />
-        </li>
-        <li>
-          <BiCircle />
-        </li>
-        <li
-          onClick={() => {
-            canvasRef.current.handler?.addSensor();
-          }}
-        >
-          Proximity
-        </li>
-        <li>
-          <FaArrowRight />
-        </li>
-        <li
-          onClick={() => {
-            canvasRef.current.handler?.addText();
-          }}
-        >
-          <BsFonts />
-        </li>
-      </ul>
-    </div>
-  );
+    return (
+        <div className={styles["quick-actions-container"]}>
+            <ul>
+                <li
+                    onClick={() => {
+                        canvasRef.current.handler?.addRect();
+                    }}
+                >
+                    <BiRectangle />
+                </li>
+                <li
+                    onClick={() => {
+                        canvasRef.current.handler?.addCircle();
+                    }}
+                >
+                    <BiCircle />
+                </li>
+                <li
+                    onClick={() => {
+                        canvasRef.current.handler?.addSensor();
+                    }}
+                >
+                    <FaArrowRight />
+                </li>
+                <li
+                    onClick={() => {
+                        canvasRef.current.handler?.addText();
+                    }}
+                >
+                    <BsFonts />
+                </li>
+            </ul>
+        </div>
+    );
 };
 
 export default QuickActions;
