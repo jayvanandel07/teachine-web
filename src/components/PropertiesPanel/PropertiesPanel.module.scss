@@ -1,4 +1,13 @@
 @import "../../main.scss";
 
-.section {
+.panel {
+    section {
+        @include flex();
+        flex-direction: column;
+        gap: 0.5em;
+
+        h1 {
+            font-weight: 800;
+        }
+    }
 }
