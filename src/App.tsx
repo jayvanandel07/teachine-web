@@ -7,8 +7,6 @@ import CanvasSlide, {
 import SlidesPanel from "./components/SlidesPanel/SlidesPanel";
 
 import "./main.scss";
-import ContextMenu from "./components/ContextMenu/ContextMenu";
-import { ContextMenuProvider } from "./contexts/ContextMenuContext";
 import Button from "./components/common/button/Button";
 
 function App() {
@@ -26,17 +24,16 @@ function App() {
     }, []);
 
     return (
-        <ContextMenuProvider>
-            <div className="wrapper">
-                {isCanvasLoaded && (
-                    <>
-                        <SlidesPanel />
-                        <QuickActions
-                            canvasRef={
-                                canvasRef as MutableRefObject<CanvasSlideInstance>
-                            }
-                        />
-                        {/* <button
+        <div className="wrapper">
+            {isCanvasLoaded && (
+                <>
+                    <SlidesPanel />
+                    <QuickActions
+                        canvasRef={
+                            canvasRef as MutableRefObject<CanvasSlideInstance>
+                        }
+                    />
+                    {/* <button
               style={{
                 position: "absolute",
                 left: "50%",
@@ -48,7 +45,7 @@ function App() {
             >
               Swap
             </button> */}
-                        {/* <button
+                    {/* <button
               style={{
                 position: "absolute",
                 left: "55%",
@@ -60,55 +57,48 @@ function App() {
             >
               Group
             </button> */}
-                    </>
-                )}
-                <CanvasSlide
-                    ref={(canvasInstance) => {
-                        canvasRef.current =
-                            canvasInstance as CanvasSlideInstance;
-                        setIsCanvasLoaded(true);
+                </>
+            )}
+            <CanvasSlide
+                ref={(canvasInstance) => {
+                    canvasRef.current = canvasInstance as CanvasSlideInstance;
+                    setIsCanvasLoaded(true);
+                }}
+            />
+            {isCanvasLoaded && (
+                <div
+                    style={{
+                        display: "flex",
+                        gap: "1rem",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
-                />
-                {isCanvasLoaded && (
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: "1rem",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
+                >
+                    <Button
+                        onClick={() => {
+                            canvasRef.current?.handler?.groupObjects();
                         }}
                     >
-                        <Button
-                            onClick={() => {
-                                canvasRef.current?.handler?.groupObjects();
-                            }}
-                        >
-                            Group
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                canvasRef.current?.handler?.swapActiveObjects();
-                            }}
-                        >
-                            Swap
-                        </Button>
-                    </div>
-                )}
-                {isCanvasLoaded && (
-                    <PropertiesPanel
-                        canvasRef={
-                            canvasRef as MutableRefObject<CanvasSlideInstance>
-                        }
-                    />
-                )}
-                <ContextMenu
+                        Group
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            canvasRef.current?.handler?.swapActiveObjects();
+                        }}
+                    >
+                        Swap
+                    </Button>
+                </div>
+            )}
+            {isCanvasLoaded && (
+                <PropertiesPanel
                     canvasRef={
                         canvasRef as MutableRefObject<CanvasSlideInstance>
                     }
                 />
-            </div>
-        </ContextMenuProvider>
+            )}
+        </div>
     );
 }
 
