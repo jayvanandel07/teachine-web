@@ -1,16 +1,15 @@
 import { FC, PropsWithChildren } from "react";
-import styles from "./Button.module.scss";
 
 interface ButtonProps {
-  onClick: () => void;
+    onClick: () => void;
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({ children, onClick }) => {
-  return (
-    <div className={styles["button-styles"]} onClick={onClick}>
-      {children}
-    </div>
-  );
+    return (
+        <div className={"button-styles"} onClick={onClick}>
+            {children}
+        </div>
+    );
 };
 
 export default Button;

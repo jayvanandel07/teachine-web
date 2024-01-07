@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import styles from "./login.module.scss";
+
 const RegisterPage = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -13,40 +16,45 @@ const RegisterPage = () => {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <form>
-                <label>
-                    Username:
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
-                <br />
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </label>
-                <br />
-                <label>
-                    Password:
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-                <br />
-                <button type="button" onClick={handleRegister}>
-                    Register
-                </button>
-            </form>
+        <div className={`${styles.wrapper}`}>
+            <div className={`${styles.container}`}>
+                <h2>Register</h2>
+                <form>
+                    <label>Username</label>
+                    <div className="input">
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <label>Email</label>
+                    <div className="input">
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+
+                    <label>Password</label>
+                    <div className="input">
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <button
+                        type="button"
+                        className={"button-styles"}
+                        onClick={handleRegister}
+                    >
+                        Register
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
