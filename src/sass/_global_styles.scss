@@ -3,9 +3,92 @@
 @import "reset";
 @import "variables";
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Open+Sans:wght@400;500;600&display=swap");
 body {
-  font-family: "Inter", sans-serif;
-  font-size: $font-size;
+    font-family: "Inter", sans-serif;
+    font-size: $font-size;
+}
+
+.button-styles {
+    padding: $padding 1.5rem;
+    border: $border-width solid $border-color-secondary;
+    border-radius: $border-radius;
+    background-color: $background-color-accent;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+        scale: 1.1;
+    }
+}
+
+.input {
+    $input-width: 20%;
+    $transition: all 0.5s ease-in-out;
+    position: relative;
+
+    &::after {
+        content: "";
+        @include offset-border(
+            $input-width,
+            1/0.5,
+            $border-width,
+            $border-color,
+            -2px,
+            left,
+            top
+        );
+        transition: $transition;
+    }
+    &::before {
+        content: "";
+        @include offset-border(
+            $input-width,
+            2/1,
+            $border-width,
+            $border-color,
+            -2px,
+            right,
+            bottom
+        );
+        transition: $transition;
+    }
+    &:hover {
+        &::after {
+            content: "";
+            @include offset-border(
+                $input-width,
+                1/0.5,
+                $border-width,
+                $border-color,
+                $border-offset,
+                left,
+                top
+            );
+        }
+
+        &::before {
+            content: "";
+            @include offset-border(
+                $input-width,
+                1/0.5,
+                $border-width,
+                $border-color,
+                $border-offset,
+                right,
+                bottom
+            );
+        }
+    }
+
+    input {
+        width: 100%;
+        font-size: 1em;
+        border: none;
+        outline: none;
+        color: $color-grey-100;
+        padding: 0.5rem;
+    }
 }
