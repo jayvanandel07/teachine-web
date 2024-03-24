@@ -2,30 +2,38 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./login.module.scss";
 import { useAuth } from "../contexts/AuthContext";
+import useAxios from "../hooks/useAxios";
+import { API_URL } from "../config";
 
 const LoginPage = () => {
     const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const { data, loading, error, sendRequest } = useAxios();
 
     const { login, user } = useAuth();
 
     useEffect(() => {
+        if (data) {
+            login(data as User);
+        }
+        if (error) {
+            console.log(error);
+        }
         if (user) {
             navigate("/");
         }
-    }, [user, navigate]);
+    }, [user, navigate, data]);
 
-    const handleLogin = () => {
-        setIsLoading(true);
-
-        localStorage.setItem("loggedInUser", email);
-        setIsLoading(false);
-        navigate("/");
+    const handleLogin = async () => {
+        await sendRequest(`${API_URL}` + `/users/login`, "POST", {
+            email,
+            password,
+        });
     };
 
-    if (isLoading) return <h1>Loading</h1>;
+    if (loading) return <h1>Loading</h1>;
 
     return (
         <div className={`${styles.wrapper}`}>

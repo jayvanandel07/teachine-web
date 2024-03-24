@@ -1,10 +1,11 @@
 // AuthContext.tsx
 
 import React, { createContext, useState, useContext, ReactNode } from "react";
+import { TeachineSessionStorage } from "../services/storageService";
 
 // Define the authentication context type
 interface AuthContextType {
-    user: User | null;
+    user: string | null;
     login: (userData: User) => void;
     logout: () => void;
 }
@@ -26,12 +27,14 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<string | null>(
+        (TeachineSessionStorage.getItem("authToken") as string) || null
+    );
 
     // Function to log in
     const login = async (userData: User) => {
-        console.log(userData);
-        setUser(userData);
+        setUser(userData.token);
+        TeachineSessionStorage.setItem("authToken", userData.token);
     };
 
     // Function to log out

@@ -16,10 +16,16 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (data) {
+            login(data as User);
+        }
+        if (error) {
+            console.log(error);
+        }
         if (user) {
             navigate("/");
         }
-    }, [user]);
+    }, [user, data]);
 
     const handleRegister = async () => {
         const registerUser = { name: username, email, password };
@@ -28,16 +34,6 @@ const RegisterPage = () => {
             "POST",
             registerUser
         );
-        if (data) {
-            login(data as User);
-            localStorage.setItem(
-                "registeredUser",
-                JSON.stringify(registerUser)
-            );
-        }
-        if (error) {
-            console.log(error);
-        }
     };
 
     if (loading) return <h1>Loading</h1>;
