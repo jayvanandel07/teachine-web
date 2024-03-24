@@ -5,7 +5,12 @@ interface AxiosHookResult<T> {
     data: T | null;
     loading: boolean;
     error: AxiosError | null;
-    sendRequest: (url: string, method?: Method, body?: any) => Promise<void>;
+    sendRequest: (
+        url: string,
+        method?: Method,
+        body?: any,
+        token?: string
+    ) => Promise<void>;
 }
 
 function useAxios<T>(): AxiosHookResult<T> {
@@ -16,7 +21,8 @@ function useAxios<T>(): AxiosHookResult<T> {
     const sendRequest = async (
         url: string,
         method: Method = "GET",
-        body?: any
+        body?: any,
+        token?: string
     ) => {
         setLoading(true);
         try {
@@ -27,6 +33,9 @@ function useAxios<T>(): AxiosHookResult<T> {
                     "Content-Type": "application/json",
                 },
             };
+            if (token) {
+                options.headers.Authorization = `Bearer ${token}`;
+            }
             if (body) {
                 options.data = JSON.stringify(body);
             }
