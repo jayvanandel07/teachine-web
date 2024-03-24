@@ -1,20 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import useAxios from "../hooks/useAxios";
 import styles from "./login.module.scss";
+import { API_URL } from "../config";
+import { useAuth } from "../contexts/AuthContext";
 
 const RegisterPage = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { data, loading, error, sendRequest } = useAxios();
+    const { login, user } = useAuth();
+
     const navigate = useNavigate();
 
-    const handleRegister = () => {
-        const registeredUser = { username, email, password };
-        localStorage.setItem("registeredUser", JSON.stringify(registeredUser));
-        navigate("/home");
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user]);
+
+    const handleRegister = async () => {
+        const registerUser = { name: username, email, password };
+        await sendRequest(
+            `${API_URL}` + `/users/register`,
+            "POST",
+            registerUser
+        );
+        if (data) {
+            login(data as User);
+            localStorage.setItem(
+                "registeredUser",
+                JSON.stringify(registerUser)
+            );
+        }
+        if (error) {
+            console.log(error);
+        }
     };
 
+    if (loading) return <h1>Loading</h1>;
     return (
         <div className={`${styles.wrapper}`}>
             <div className={`${styles.container}`}>

@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./login.module.scss";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
-    const [username, setUsername] = useState("");
+    const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
+    const { login, user } = useAuth();
+
+    useEffect(() => {
+        if (user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
+
     const handleLogin = () => {
         setIsLoading(true);
-        localStorage.setItem("loggedInUser", username);
+
+        localStorage.setItem("loggedInUser", email);
         setIsLoading(false);
-        navigate("/home");
+        navigate("/");
     };
 
     if (isLoading) return <h1>Loading</h1>;
@@ -22,11 +32,11 @@ const LoginPage = () => {
             <div className={`${styles.container}`}>
                 <h2>Login</h2>
                 <form id={`${styles.loginForm}`}>
-                    <label>Username</label>
+                    <label>Email</label>
                     <div className="input">
                         <input
                             type="text"
-                            value={username}
+                            value={email}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
