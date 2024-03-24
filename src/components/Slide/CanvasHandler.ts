@@ -7,11 +7,12 @@ interface CanvasHandlersCallback {
     onSelect?: (target: unknown) => void;
     onRemove?: (target: unknown) => void;
 }
+
 interface CanvasHandlersOptions extends CanvasHandlersCallback {
     canvas: fabric.Canvas;
 }
 
-export type FabricObject = fabric.Object & { customData: string };
+export type TeachineObject = fabric.Object & { customData: string };
 
 export class CanvasHandler {
     public canvas?: fabric.Canvas;
@@ -32,6 +33,7 @@ export class CanvasHandler {
         this.onClick = options.onClick;
         this.onSelect = options.onSelect;
         this.onRemove = options.onRemove;
+        // this.onCanvasChange = options.
     }
 
     private initOptions(options: CanvasHandlersOptions) {
@@ -130,13 +132,13 @@ export class CanvasHandler {
             });
 
             this.canvas?.forEachObject((element) => {
-                if (!(element as FabricObject).customData) return;
+                if (!(element as TeachineObject).customData) return;
 
                 if (isEqual(element, sensor) && isEqual(text, sensor)) return;
 
                 if (!areObjectsNear(element, sensor)) return;
 
-                text.set("text", (element as FabricObject).customData);
+                text.set("text", (element as TeachineObject).customData);
 
                 setTimeout(() => {
                     text.set("text", "");

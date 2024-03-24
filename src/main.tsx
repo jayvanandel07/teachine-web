@@ -5,14 +5,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/login.tsx";
 import RegisterPage from "./pages/register.tsx";
 import LaunchScreen from "./pages/launchscreen.tsx";
+import Slides from "./pages/Slides.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <LaunchScreen />,
+        element: <Slides />,
     },
     {
-        path: "/home",
+        path: "/presentation",
         element: <App />,
     },
     {

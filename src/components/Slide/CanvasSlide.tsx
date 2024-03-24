@@ -1,18 +1,18 @@
-import React, {
+import {
     MutableRefObject,
     forwardRef,
     useEffect,
     useImperativeHandle,
     useRef,
-    useState,
 } from "react";
 import styles from "./CanvasSlide.module.scss";
 import { fabric } from "fabric";
 import { CanvasHandler } from "./CanvasHandler";
-import { useContextMenu } from "../../contexts/ContextMenuContext";
+// import { useContextMenu } from "../../contexts/ContextMenuContext";
 
 interface SlideProps {
     ref: MutableRefObject<CanvasSlideInstance>;
+    canvasDataJson: string | null;
 }
 
 export interface CanvasSlideInstance {
@@ -21,10 +21,12 @@ export interface CanvasSlideInstance {
 }
 
 const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
-    function CanvasSlide(props, ref) {
+    function CanvasSlide({ canvasDataJson }, ref) {
         const canvasRef = useRef<CanvasSlideInstance>({
             canvas: null,
         });
+
+        console.log(canvasDataJson);
 
         // const { showContextMenuAtMousePosition, hideContextMenu } =
         // useContextMenu();
@@ -34,10 +36,10 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
                 width: 850,
                 height: 540,
             });
-
+            // canvasRef.current.canvas.loadFromJSON(canvasDataJson);
             canvasRef.current.handler = new CanvasHandler({
                 canvas: canvasRef.current.canvas as fabric.Canvas,
-                onAdd: (obj) => {},
+                onAdd: () => {},
                 onClick: () => {},
             });
         }, [canvasRef.current.canvas]);
@@ -50,9 +52,9 @@ const CanvasSlide = forwardRef<CanvasSlideInstance, Omit<SlideProps, "ref">>(
         return (
             <div
                 className={styles["slide-container"]}
-                onContextMenu={(e) => {
-                    // showContextMenuAtMousePosition(e);
-                }}
+                // onContextMenu={() => {
+                //     // showContextMenuAtMousePosition(e);
+                // }}
                 // onClick={hideContextMenu}
                 onClick={() => {}}
             >

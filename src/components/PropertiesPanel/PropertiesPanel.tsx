@@ -2,7 +2,7 @@ import { FC, MutableRefObject, useEffect, useState } from "react";
 import styles from "./PropertiesPanel.module.scss";
 import { CanvasSlideInstance } from "../Slide/CanvasSlide";
 import { debounce, cloneDeep } from "lodash";
-import { FabricObject } from "../Slide/CanvasHandler";
+import { TeachineObject } from "../Slide/CanvasHandler";
 
 interface PropertiesPanelProps {
     canvasRef: MutableRefObject<CanvasSlideInstance>;
@@ -21,12 +21,12 @@ const PropertiesPanel: FC<PropertiesPanelProps> = ({ canvasRef }) => {
             const activeObject = e.selected?.[0];
             setActiveCanvasObject(activeObject);
             setActivePanelObject(cloneDeep(activeObject));
-            setToExpose((activeObject as FabricObject)?.customData ?? "");
+            setToExpose((activeObject as TeachineObject)?.customData ?? "");
         });
 
         canvas?.on("selection:updated", (e) => {
             setActivePanelObject(cloneDeep(e.selected?.[0]));
-            setToExpose((e.selected?.[0] as FabricObject).customData ?? "");
+            setToExpose((e.selected?.[0] as TeachineObject).customData ?? "");
         });
 
         canvas?.on("selection:cleared", () => {
