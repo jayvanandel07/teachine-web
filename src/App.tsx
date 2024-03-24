@@ -9,13 +9,23 @@ import SlidesPanel from "./components/SlidesPanel/SlidesPanel";
 import "./main.scss";
 import Button from "./components/common/button/Button";
 
+interface canvasSerializedData {
+    svg: string | null;
+    json: string | null;
+}
+
+const initialSlides: canvasSerializedData[] = [{ json: null, svg: null }];
+
 function App() {
     const canvasRef = useRef<CanvasSlideInstance>();
+    const [slides] = useState<canvasSerializedData[]>(initialSlides);
+    const [currentSlide] = useState<canvasSerializedData>(slides[0]);
     const [isCanvasLoaded, setIsCanvasLoaded] = useState(false);
 
     function clickHandler(e: MouseEvent): void {
         e.preventDefault();
     }
+
     useEffect(() => {
         window.addEventListener("contextmenu", clickHandler);
         return () => {
@@ -33,33 +43,10 @@ function App() {
                             canvasRef as MutableRefObject<CanvasSlideInstance>
                         }
                     />
-                    {/* <button
-              style={{
-                position: "absolute",
-                left: "50%",
-                zIndex: 10,
-              }}
-              onClick={() => {
-                canvasRef.current?.handler?.swapActiveObjects();
-              }}
-            >
-              Swap
-            </button> */}
-                    {/* <button
-              style={{
-                position: "absolute",
-                left: "55%",
-                zIndex: 10,
-              }}
-              onClick={() => {
-                canvasRef.current?.handler?.groupObjects();
-              }}
-            >
-              Group
-            </button> */}
                 </>
             )}
             <CanvasSlide
+                canvasDataJson={currentSlide.json}
                 ref={(canvasInstance) => {
                     canvasRef.current = canvasInstance as CanvasSlideInstance;
                     setIsCanvasLoaded(true);
@@ -89,6 +76,18 @@ function App() {
                     >
                         Swap
                     </Button>
+                    <Button
+                        onClick={() => {
+                            alert(
+                                JSON.stringify(
+                                    canvasRef.current?.canvas?.toJSON()
+                                )
+                            );
+                        }}
+                    >
+                        Save
+                    </Button>
+                    <Button onClick={() => {}}>Record</Button>
                 </div>
             )}
             {isCanvasLoaded && (
